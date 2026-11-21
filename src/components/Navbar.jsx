@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -42,12 +42,12 @@ const Navbar = () => {
 						</li>
 						<li className="mb-4">
 							<a href="#Gallery" className="text-white opacity-80 text-lg font-bold">
-								Gallery
+								Galeri
 							</a>
 						</li>
 						<li>
 							<a href="#Tabs" className="text-white opacity-80 text-lg font-bold">
-								Structure & Schedule
+								Struktur & Jadwal
 							</a>
 						</li>
 					</ul>
@@ -67,12 +67,12 @@ const Navbar = () => {
 					</li>
 					<li className="mb-4">
 						<a href="#Gallery" className="text-white opacity-80 text-[1rem] font-semibold">
-							Gallery
+							Galeri
 						</a>
 					</li>
 					<li>
 						<a href="#Tabs" className="text-white opacity-80 text-[1rem] font-semibold">
-							Structure & Schedule
+							Struktur & Jadwal
 						</a>
 					</li>
 				</ul>

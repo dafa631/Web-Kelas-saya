@@ -1,95 +1,56 @@
-import React, { useEffect } from "react"
+import { useEffect, useState } from "react"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import { classConfig } from "../config/classConfig"
 
-const Senin = React.lazy(() => import("../components/Mapel/Senin"))
-const Selasa = React.lazy(() => import("../components/Mapel/Selasa"))
-const Rabu = React.lazy(() => import("../components/Mapel/Rabu"))
-const Kamis = React.lazy(() => import("../components/Mapel/Kamis"))
-const Jumat = React.lazy(() => import("../components/Mapel/Jumat"))
+const schedules = {
+    Senin: [["Dasar Pemrograman", "08.00-09.40"], ["Matematika Diskrit", "10.00-11.40"], ["Istirahat", "11.40-12.20"], ["Pengantar Sistem Informasi", "12.20-14.00"]],
+    Selasa: [["Aljabar Linier", "08.00-09.40"], ["Bahasa Inggris", "10.00-11.40"]],
+    Rabu: [["Basis Data", "08.00-09.40"], ["Pancasila", "10.00-11.40"]],
+    Kamis: [["Organisasi dan Arsitektur Komputer", "08.00-09.40"], ["Pemrograman Berorientasi Objek", "10.00-11.40"]],
+    Jumat: [["Statistika", "08.00-09.40"], ["Praktikum Laboratorium", "10.00-11.40"]],
+}
 
 const Schedule = () => {
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    const currentDay = daysOfWeek[new Date().getDay()]
+    const [selectedDay, setSelectedDay] = useState("Senin")
 
     useEffect(() => {
         AOS.init()
         AOS.refresh()
     }, [])
 
-    let piketGroup = []
-
-    // Menentukan kelompok piket berdasarkan hari
-    piketGroup = [
-        ["Amel", "Helmalia", "Fadli I", "Shera", "Nicollas"],
-        ["Windi", "Lista", "Jeriko", "Pratiwi", "Damar"],
-        ["Putri", "Paulista", "Firdaus", "Attala", "Ardian"],
-        ["Cariska", "Nila", "Wahid", "Togi", "Annisa"],
-        ["Sultan", "Zaini", "Fajri", "Arif"],
-    ]
-
-    const dayComponents = [
-        null, // Kosongkan indeks 0
-        Senin,
-        Selasa,
-        Rabu,
-        Kamis,
-        Jumat,
-    ]
-
-    // Menampilkan komponen berdasarkan hari saat ini
-    const TodayComponent = dayComponents[new Date().getDay()]
-
-    // Menampilkan nama-nama piket sesuai dengan hari saat ini
-    const currentPiketNames = piketGroup[new Date().getDay() - 1]
-
-    console.log("Current Day:", currentDay)
-    console.log("Piket Group:", piketGroup)
-    console.log("Current Piket Names:", currentPiketNames)
-
     return (
         <>
-            {/* Jadwal Mapel */}
             <div className="lg:flex lg:justify-center lg:gap-32 lg:mb-10 lg:mt-16 ">
                 <div className="text-white flex flex-col justify-center items-center mt-8 md:mt-3 overflow-y-hidden">
                     <div className="text-2xl font-medium mb-5" data-aos="fade-up" data-aos-duration="500">
-                        {currentDay}
+                        Jadwal Kuliah
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-2 mb-6">
+                        {Object.keys(schedules).map((day) => (
+                            <button
+                                key={day}
+                                type="button"
+                                onClick={() => setSelectedDay(day)}
+                                className={`rounded-full border px-4 py-2 text-sm transition ${selectedDay === day ? "border-white bg-white text-black" : "border-white/40 text-white"}`}>
+                                {day}
+                            </button>
+                        ))}
                     </div>
                     <div data-aos="fade-up" data-aos-duration="400">
-                        {TodayComponent ? (
-                            <React.Suspense fallback={<p>Loading...</p>}>
-                                <TodayComponent />
-                            </React.Suspense>
-                        ) : (
-                            <p className="opacity-50">Tidak Ada Jadwal Hari Ini</p>
-                        )}
+                        {schedules[selectedDay].map(([course, time], index) => (
+                            <div
+                                key={`${course}-${time}`}
+                                className={`flex justify-between border-t-2 border-white px-3 py-3 w-72 ${index === schedules[selectedDay].length - 1 ? "border-b-2" : ""} ${course === "Istirahat" ? "opacity-60" : ""}`}
+                                data-aos="fade-up"
+                                data-aos-duration={600 + index * 100}>
+                                <div className="w-[55%] text-base font-medium">{course}</div>
+                                <div className="flex items-center text-sm">{time}</div>
+                            </div>
+                        ))}
                     </div>
+                    <p className="mt-6 text-xs text-white/50">{classConfig.programName} · {classConfig.semesterName}</p>
                 </div>
-            </div>
-
-            {/* Jadwal Piket */}
-            <div className="text-white flex flex-col justify-center items-center mt-8 lg:mt-0 lg:mb-[10rem] mb-10 overflow-y-hidden">
-                <div
-                    className="text-2xl font-medium mb-5 text-center"
-                    data-aos="fade-up"
-                    data-aos-duration="500">
-                    Piket
-                </div>
-                {currentPiketNames && currentPiketNames.length > 0 ? (
-                    currentPiketNames.map((piketName, index) => (
-                        <div
-                            key={index}
-                            className={` border-t-2 border-white flex justify-center py-[0.50rem] w-72 px-3 ${
-                                index === currentPiketNames.length - 1 ? "border-b-2" : ""
-                            }`}
-                            data-aos="fade-up"
-                            data-aos-duration={600 + index * 100}>
-                            <div className="text-base font-medium">{piketName}</div>
-                        </div>
-                    ))
-                ) : (
-                    <p className="opacity-50">Tidak Ada Jadwal Hari Ini</p>
-                )}
             </div>
         </>
     )

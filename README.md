@@ -1,5 +1,5 @@
-# Web Kelas
-Web Kelas adalah platform yang bertujuan untuk menyediakan informasi tentang kelas kami. 
+# Web Kelas Perkuliahan
+Web Kelas Perkuliahan adalah portal untuk menyediakan informasi kelas, jadwal mata kuliah, struktur pengurus, galeri, dan komunikasi mahasiswa.
 
 Teknologi yang digunakan diantaranya: 
 - React JS: Membangun antarmuka pengguna yang responsif dan interaktif.

@@ -31,7 +31,7 @@ function TabPanel(props) {
 			{...other}>
 			{value === index && (
 				<Box sx={{ p: 0 }}>
-					<Typography>{children}</Typography>
+					<Typography component="div">{children}</Typography>
 				</Box>
 			)}
 		</div>
@@ -98,7 +98,7 @@ export default function FullWidthTabs() {
 						className="font-medium text-white text-2xl text-center mt-16"
 						id="Glow">
 						<Tab
-							label="Structure"
+							label="Struktur"
 							{...a11yProps(0)}
 							sx={{
 								fontWeight: "medium",
@@ -115,7 +115,7 @@ export default function FullWidthTabs() {
 						/>
 
 						<Tab
-							label="Schedule"
+							label="Jadwal"
 							{...a11yProps(1)}
 							sx={{
 								fontWeight: "medium",

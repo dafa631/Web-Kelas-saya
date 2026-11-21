@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -90,7 +90,7 @@ const Carousel = () => {
 	return (
 		<>
 			<div className="text-white opacity-60 text-base font-semibold mb-4 mx-[10%] mt-10 lg:text-center lg:text-3xl lg:mb-8" id="Gallery">
-				Class Gallery
+				Galeri Kelas
 			</div>
 			<div id="Carousel">
 				<Slider {...settings}>
