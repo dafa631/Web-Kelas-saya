@@ -4,6 +4,6 @@ export const classConfig = {
   className: "Kelas 5C PAI",
   semesterName: "Semester 1",
   studentCount: 25,
-  instagramUrl: "#",
+  instagramUrl: "https://www.instagram.com/clashofclasspaic?bqrl=ZDB3NXN1aTZtYWpo",
   linkGroupUrl: "#",
 }
