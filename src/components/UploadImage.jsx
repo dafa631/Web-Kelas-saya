@@ -35,6 +35,15 @@ function UploadImage() {
   const uploadImage = () => {
     if (imageUpload == null) return;
 
+    if (!imageUpload.type.startsWith("image/")) {
+      Swal.fire({
+        icon: "error",
+        title: "Format tidak valid",
+        text: "Pilih file berupa foto atau gambar.",
+      });
+      return;
+    }
+
     const uploadedImagesCount = parseInt(localStorage.getItem("uploadedImagesCount")) || 0;
     const lastUploadDate = localStorage.getItem("lastUploadDate");
 
@@ -69,29 +78,40 @@ function UploadImage() {
 
     const imageRef = ref(storage, `images/${imageUpload.name}-${uuidv4()}`);
     uploadBytes(imageRef, imageUpload)
-      .then((snapshot) => {
-        getDownloadURL(snapshot.ref)
-          .then((url) => {
-            setImageList((prev) => [...prev, url]);
-            localStorage.setItem("uploadedImagesCount", uploadedImagesCount + 1);
-            localStorage.setItem("lastUploadDate", new Date().toISOString());
+      .then(async (snapshot) => {
+        try {
+          const url = await getDownloadURL(snapshot.ref);
+          setImageList((prev) => [...prev, url]);
+          localStorage.setItem("uploadedImagesCount", uploadedImagesCount + 1);
+          localStorage.setItem("lastUploadDate", new Date().toISOString());
 
-            Swal.fire({
-              icon: "success",
-              title: "Success!",
-              text: "Your image has been successfully uploaded.",
-			  customClass: {
-				container: "sweet-alert-container",
-			},
-            });
-          })
-          .catch((error) => {
-            console.log(error);
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "Foto berhasil diunggah.",
+            customClass: {
+              container: "sweet-alert-container",
+            },
           });
-        setImageUpload(null);
+          setImageUpload(null);
+        } catch (error) {
+          console.error("Gagal mengambil URL foto:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Upload tidak selesai",
+            text: "Foto tersimpan, tetapi URL-nya gagal dimuat.",
+          });
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Gagal mengunggah foto:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal mengunggah",
+          text: error.code === "storage/unauthorized"
+            ? "Firebase Storage menolak akses. Periksa Storage Rules."
+            : "Periksa koneksi internet atau coba foto berukuran lebih kecil.",
+        });
       });
   };
 
@@ -110,7 +130,13 @@ function UploadImage() {
 			<div className="mx-auto p-4">
 				<form>
 					<div className="mb-4">
-						<input type="file" id="imageUpload" className="hidden" onChange={handleImageChange} />
+						<input
+							type="file"
+							id="imageUpload"
+							className="hidden"
+							accept="image/*"
+							onChange={handleImageChange}
+						/>
 						<label
 							htmlFor="imageUpload"
 							className="cursor-pointer border-dashed border-2 border-gray-400 rounded-lg p-4 w-56 h-auto flex items-center justify-center">
@@ -137,7 +163,7 @@ function UploadImage() {
 											d="M12 6v6m0 0v6m0-6h6m-6 0H6"
 										/>
 									</svg>
-									<p className="text-white opacity-60">Click to select an image</p>
+									<p className="text-white opacity-60">Pilih foto atau gambar</p>
 								</div>
 							)}
 						</label>
