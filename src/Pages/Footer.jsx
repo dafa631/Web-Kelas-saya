@@ -29,9 +29,6 @@ const Footer = () => {
 								<li className="mb-2">
 									<a href={classConfig.instagramUrl} className="hover:underline">Instagram Kelas</a>
 								</li>
-								<li>
-									<a href={classConfig.linkGroupUrl} className="hover:underline">Tautan Kelas</a>
-								</li>
 							</ul>
 						</div>
 						<div className="hidden md:block"><Rating /></div>

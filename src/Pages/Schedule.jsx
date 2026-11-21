@@ -4,11 +4,26 @@ import "aos/dist/aos.css"
 import { classConfig } from "../config/classConfig"
 
 const schedules = {
-    Senin: [["Dasar Pemrograman", "08.00-09.40"], ["Matematika Diskrit", "10.00-11.40"], ["Istirahat", "11.40-12.20"], ["Pengantar Sistem Informasi", "12.20-14.00"]],
-    Selasa: [["Aljabar Linier", "08.00-09.40"], ["Bahasa Inggris", "10.00-11.40"]],
-    Rabu: [["Basis Data", "08.00-09.40"], ["Pancasila", "10.00-11.40"]],
-    Kamis: [["Organisasi dan Arsitektur Komputer", "08.00-09.40"], ["Pemrograman Berorientasi Objek", "10.00-11.40"]],
-    Jumat: [["Statistika", "08.00-09.40"], ["Praktikum Laboratorium", "10.00-11.40"]],
+    Senin: [
+        ["Karya Tulis Ilmiah", "07.00-08.40"],
+        ["Seni dan Budaya Islami", "15.20-17.00"],
+    ],
+    Selasa: [
+        ["Supervisi Pendidikan", "15.20-17.00"],
+    ],
+    Rabu: [
+        ["Nahwu Sharaf*", "08.40-10.20"],
+        ["Pengembangan Bahan Ajar PAI", "15.20-17.00"],
+    ],
+    Kamis: [
+        ["Sejarah Pendidikan Islam", "13.20-15.00"],
+        ["Kebijakan PAI", "15.20-17.00"],
+    ],
+    Jumat: [
+        ["Penjaminan Mutu Pendidikan", "12.45-14.25"],
+        ["Kepemimpinan Pendidikan Islam", "15.20-17.00"],
+        ["Bimbingan dan Konseling", "17.00-18.40"],
+    ],
 }
 
 const Schedule = () => {
